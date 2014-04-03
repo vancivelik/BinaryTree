@@ -1,5 +1,6 @@
 vows = require "vows"
 assert = require "assert"
+require "coffee-script"
 
 BinaryTree = null
 
@@ -24,7 +25,7 @@ equal = -> assert.deepEqual arguments...
 vows.describe("BinaryTree").addBatch(
 	
 	"module":
-		"source": -> BinaryTree = require "./BinaryTree.coffee"
+		"source": -> BinaryTree = require "./BinaryTree.js"
 		"directory": -> require "./"
 	
 	"constructor":

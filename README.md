@@ -1,10 +1,10 @@
 # BinaryTree
-0.1.2
+0.2.0
 
 `npm install binary-tree`
-`git clone https://github.com/isglazunov/BinaryTree.git`
+`git clone https://github.com/vancivelik/BinaryTree.git`
 
-## terms
+## Terms
 `node = [address, key, left, right]`
 
 `Address` is a `string` or a `number`
@@ -27,7 +27,7 @@ if `left` or `right` is a `null` then right subtree is empty
 
 `debug` is a `boolean`, indicates throw any errors
 
-### handler variants
+### Handler variants
 `(null, null) ->` not found
 
 `(node, null) ->` last node
@@ -36,7 +36,16 @@ if `left` or `right` is a `null` then right subtree is empty
 
 the last returned node - the target node
 
-## construct
+## Construct
+
+### Server
+`BinaryTree = require 'binary-tree'`
+
+### Client
+`require ['binary-tree'], (BinaryTree) ->`
+
+## Usage
+
 it gives full modularity
 ```
 getNode = (address, callback) -> callback node # return the node address - address
@@ -62,7 +71,7 @@ to run the tests, you can try `vows Tests.coffee --spec` in console
 
 if you use `grunt` in console, the main file and the test file will be compiled automatically
 
-## instance
+## Instance
 `instance.unsafe.travel node, (node, next) -> next node`
 `instance.unsafe.corner node source, direction, (node, next) -> do next`
 `instance.unsafe.merge node left, node right, (node, next) -> do next`
@@ -76,13 +85,23 @@ if you use `grunt` in console, the main file and the test file will be compiled 
 `instance.safe.detach node target, (node, next) -> do next`
 `instance.unsafe.detach node source, node target, (node, next) -> do next`
 
-## changes
+## Changes
+### 0.2.0
+Fork [Van Civelik](https://github.com/vancivelik).
+
+Require.js support.
+
 ### 0.1.2
 Improved documentation.
+
 ### 0.1.1
 In the constructor method is added setNode, immediately setting the left and right subtree, for increased productivity.
+
 ### 0.1.0
 Written including, possibly, all behaviors.
+
 Written library performs tests.
+
 The library can be used as a node.js module.
+
 Custom methods passed to the constructor transferred to the sub-object instance.user.

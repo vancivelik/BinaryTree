@@ -1,9 +1,9 @@
 (function() {
-  var binaryTree, constructor,
+  var BinaryTree, constructor,
     __slice = [].slice;
 
-  binaryTree = constructor = function(userGetNode, userSetLeft, userSetRight, userSetNode, userGetRoot, userSetRoot, duplicating, merging, debug) {
-    var assert, attach, detach, duplicatingDirection, getNode, getRoot, instance, safeAttach, safeDetach, safeSearch, search, setLeft, setNode, setRight, setRoot, unsafeAttach, unsafeAttachDuplicates, unsafeAttachDuplicatesOn, unsafeCorner, unsafeDetach, unsafeDetachChange, unsafeDetachResult, unsafeDouble, unsafeDoubleHandler, unsafeDoubleTravel, unsafeMerge, unsafeMergeAction, unsafeSearch, unsafeSearchAction, unsafeTravel, valid;
+  BinaryTree = constructor = function(userGetNode, userSetLeft, userSetRight, userSetNode, userGetRoot, userSetRoot, duplicating, merging, debug) {
+    var assert, attach, binaryTree, detach, duplicatingDirection, getNode, getRoot, instance, safeAttach, safeDetach, safeSearch, search, setLeft, setNode, setRight, setRoot, unsafeAttach, unsafeAttachDuplicates, unsafeAttachDuplicatesOn, unsafeCorner, unsafeDetach, unsafeDetachChange, unsafeDetachResult, unsafeDouble, unsafeDoubleHandler, unsafeDoubleTravel, unsafeMerge, unsafeMergeAction, unsafeSearch, unsafeSearchAction, unsafeTravel, valid;
     binaryTree = instance = this;
     instance.is = valid = {
       array: function(argument) {
@@ -512,6 +512,12 @@
     return instance;
   };
 
-  module.exports = constructor;
+  if (typeof global !== 'undefined') {
+    module.exports = constructor;
+  } else if (typeof window !== 'undefined') {
+    define(['module'], function(module) {
+      return module.exports = constructor;
+    });
+  }
 
 }).call(this);

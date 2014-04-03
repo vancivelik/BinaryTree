@@ -1,12 +1,12 @@
-binaryTree = constructor = (
+BinaryTree = constructor = (
 	userGetNode, userSetLeft, userSetRight, userSetNode, userGetRoot, userSetRoot
 	duplicating, merging, debug
 ) ->
 	
-	# aliases
+	# Aliases
 	binaryTree = instance = this
 	
-	# methods of validation
+	# Aethods of validation
 	instance.is = valid =
 		array: (argument) -> Object.prototype.toString.call(argument) is "[object Array]"
 		boolean: (argument) -> typeof argument is "boolean"
@@ -22,7 +22,7 @@ binaryTree = constructor = (
 		pointer: (argument) -> argument is null or valid.node(argument)
 		nodeOrAddress: (argument) -> valid.address(argument) or valid.node(argument)
 	
-	# methods of assertion
+	# Aethods of assertion
 	instance.assert = assert = {}
 	do ->
 		create =
@@ -33,7 +33,7 @@ binaryTree = constructor = (
 		for key, method of valid
 			create key, method
 	
-	# wrap arguments
+	# Wrap arguments
 	assert.duplicating duplicating
 	assert.merging merging
 	assert.boolean debug
@@ -86,10 +86,10 @@ binaryTree = constructor = (
 		instance.user.getRoot = getRoot = userGetRoot
 		instance.user.setRoot = setRoot = userSetRoot
 	
-	# unsafe
+	# Unsafe
 	instance.unsafe = {}
 
-	# unsafe travel
+	# Unsafe Travel
 	instance.unsafe.travel = unsafeTravel = (node, handler) ->
 		assert.node node
 		assert.function handler
@@ -101,7 +101,7 @@ binaryTree = constructor = (
 	
 		action node
 
-	# unsafe double
+	# Unsafe Double
 	duplicatingDirection = duplicating+1
 
 	instance.unsafe.double = unsafeDouble = (node, handler) ->
@@ -122,7 +122,7 @@ binaryTree = constructor = (
 				else handler node, null
 		else handler node, null
 	
-	# unsafe corner
+	# Unsafe Corner
 	instance.unsafe.corner = unsafeCorner = (node, direction, handler) ->
 		assert.node node
 		assert.direction direction
@@ -137,7 +137,7 @@ binaryTree = constructor = (
 					getNode nodeD[direct], nextT
 				else handler nodeD, null
 		
-	# unsafe search
+	# Unsafe Search
 	instance.unsafe.search = unsafeSearch = (source, target, handler) ->
 		assert.cursor source
 		assert.node target
@@ -162,7 +162,7 @@ binaryTree = constructor = (
 					else handler nodeD, null
 				else handler nodeD, null
 	
-	# unsafe attach
+	# Unsafe Attach
 	instance.unsafe.attach = unsafeAttach = (source, target, handler) ->
 		assert.pointer source
 		assert.node target
@@ -196,7 +196,7 @@ binaryTree = constructor = (
 					setNode target[0], source[2], source[3], (target) ->
 						handler target, null
 	
-	# unsafe merge
+	# Unsafe Merge
 	instance.unsafe.merge = unsafeMerge = (left, right, handler) ->
 		assert.node left
 		assert.node right
@@ -219,7 +219,7 @@ binaryTree = constructor = (
 					if last[0] is right[0] then handler last, null
 					else handler last, -> handler right, null
 	
-	# unsafe detach
+	# Unsafe Detach
 	instance.unsafe.detach = unsafeDetach = (source, target, handler) ->
 		assert.cursor source
 		assert.node target
@@ -267,10 +267,10 @@ binaryTree = constructor = (
 		method source[0], result, (source) ->
 			handler source, null
 	
-	# safe
+	# Safe
 	instance.safe = {}
 	
-	# safe search
+	# Safe Search
 	instance.safe.search = safeSearch = (target, handler) ->
 		assert.node target
 		assert.function handler
@@ -279,7 +279,7 @@ binaryTree = constructor = (
 			if root? then getNode root, (root) -> unsafeSearch root, target, handler
 			else handler null, null
 	
-	# safe attach
+	# Safe Attach
 	instance.safe.attach = safeAttach = (target, handler) ->
 		assert.node target
 		assert.function handler
@@ -291,7 +291,7 @@ binaryTree = constructor = (
 					else unsafeAttach node, target, handler
 			else unsafeAttach root, target, handler
 	
-	# safe detach
+	# Safe Detach
 	instance.safe.detach = safeDetach = (target, handler) ->
 		assert.node target
 		assert.function handler
@@ -308,21 +308,21 @@ binaryTree = constructor = (
 					else if node[0] is target[0]
 						unsafeDetach last, node, handler
 	
-	# search
+	# Search
 	instance.search = search = (target, handler) ->
 		assert.address target
 		assert.function handler
 		
 		getNode target, (target) -> safeSearch target, handler
 	
-	# attach
+	# Attach
 	instance.attach = attach = (target, handler) ->
 		assert.address target
 		assert.function handler
 		
 		getNode target, (target) -> safeAttach target, handler
 	
-	# detach
+	# Detach
 	instance.detach = detach = (target, handler) ->
 		assert.address target
 		assert.function handler
@@ -331,4 +331,6 @@ binaryTree = constructor = (
 	
 	return instance
 
-module.exports = constructor
+# Require
+if typeof(global) isnt 'undefined' then module.exports = constructor
+else if typeof(window) isnt 'undefined' then define ['module'], (module) -> module.exports = constructor

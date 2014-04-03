@@ -6,11 +6,12 @@
 
   assert = require("assert");
 
+  require("coffee-script");
+
   BinaryTree = null;
 
   construct = function(nodes, root, duplicating, merging) {
-    var getNode, getRoot, setLeft, setNode, setRight, setRoot,
-      _this = this;
+    var getNode, getRoot, setLeft, setNode, setRight, setRoot;
     if (nodes == null) {
       nodes = {};
     }
@@ -23,28 +24,40 @@
     if (merging == null) {
       merging = 1;
     }
-    getNode = function(address, callback) {
-      return callback([address].concat(__slice.call(nodes[address])));
-    };
-    setLeft = function(address, link, callback) {
-      nodes[address][1] = link;
-      return callback([address].concat(__slice.call(nodes[address])));
-    };
-    setRight = function(address, link, callback) {
-      nodes[address][2] = link;
-      return callback([address].concat(__slice.call(nodes[address])));
-    };
-    setNode = function(address, left, right, callback) {
-      nodes[address][1] = left;
-      nodes[address][2] = right;
-      return callback([address].concat(__slice.call(nodes[address])));
-    };
-    getRoot = function(callback) {
-      return callback(root);
-    };
-    setRoot = function(link, callback) {
-      return callback(root = link);
-    };
+    getNode = (function(_this) {
+      return function(address, callback) {
+        return callback([address].concat(__slice.call(nodes[address])));
+      };
+    })(this);
+    setLeft = (function(_this) {
+      return function(address, link, callback) {
+        nodes[address][1] = link;
+        return callback([address].concat(__slice.call(nodes[address])));
+      };
+    })(this);
+    setRight = (function(_this) {
+      return function(address, link, callback) {
+        nodes[address][2] = link;
+        return callback([address].concat(__slice.call(nodes[address])));
+      };
+    })(this);
+    setNode = (function(_this) {
+      return function(address, left, right, callback) {
+        nodes[address][1] = left;
+        nodes[address][2] = right;
+        return callback([address].concat(__slice.call(nodes[address])));
+      };
+    })(this);
+    getRoot = (function(_this) {
+      return function(callback) {
+        return callback(root);
+      };
+    })(this);
+    setRoot = (function(_this) {
+      return function(link, callback) {
+        return callback(root = link);
+      };
+    })(this);
     return new BinaryTree(getNode, setLeft, setRight, setNode, getRoot, setRoot, duplicating, merging, true);
   };
 
@@ -55,7 +68,7 @@
   vows.describe("BinaryTree").addBatch({
     "module": {
       "source": function() {
-        return BinaryTree = require("./BinaryTree.coffee");
+        return BinaryTree = require("./BinaryTree.js");
       },
       "directory": function() {
         return require("./");
